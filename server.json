@@ -1,0 +1,134 @@
+{
+    //图片上传
+    "upLoadApi": {
+        "serve": "/data/cschatroom/upload.json",
+        "api": "/crmim/upload"
+    },
+    //历史客户列表
+    "getHistorySessionLsitApi": {
+        "serve": "/data/cschatroom/getHistorySessionLsit.json",
+        "api": "/crmim/getHistorySessionLsit"
+    },
+    //发送消息
+    "AgentsendmessageApi": {
+        "serve": "/data/cschatroom/agentsendmessage.json",
+        "api": "/crmim/msgAgentReply"
+    },
+    //拉取聊天消息
+    "getMsgLsitApi": {
+        "serve": "/data/cschatroom/getmsglsit.json",
+        "api": "/crmim/getMsgLsit"
+    },
+    //拉用户
+    "agentfindnewmessageApi": {
+        "serve": "/data/cschatroom/agentfindnewmessage.json",
+        "api": "/crmim/agentFindNewMessage"
+    },
+    //坐席状态
+    "signinoroutApi":{
+        "serve": "/data/cschatroom/signinorout.json",
+        "api": "/crmim/signInOrOut"
+    },
+    //关闭会话
+    "closeSessionApi":{
+        "serve": "/data/cschatroom/closeSession.json",
+        "api": "/crmim/closeSession"
+    },
+    //强制签入
+    "forcSignInApi":{
+        "serve": "/data/cschatroom/forcsignin.json",
+        "api": "/crmim/forcibleSignIn"
+    },
+    //客服状态
+    "queryagentstatusApi":{
+        "serve": "/data/cschatroom/queryagentstatus.json",
+        "api": "/crmim/queryAgentStatus"
+    },
+    //会话记录列表
+    "sessionListApi":{
+        "serve": "/data/cschatroom/sessionlist.json",
+        "api": "/onlineReport/sessionList"
+    },
+    //获取会话记录用户聊天消息
+    "msgsFromSessionApi":{
+        "serve": "/data/cschatroom/msgsFromSession.json",
+        "api": "/crmim/getMsgsWithSessionId"
+    },
+    //根据日期查询聊天消息
+    "getMsgsWithTimeApi":{
+        "serve": "/data/cschatroom/getMsgsWithTime.json",
+        "api": "/crmim/getMsgsWithTime"
+    },
+    //获取当前聊天消息
+    "getCurrSessionMsgsApi":{
+        "serve": "/data/cschatroom/getCurrSessionMsgs.json",
+        "api": "/crmim/getCurrSessionMsgs"
+    },
+    //系统快捷语
+    "getParameterItemApi":{
+        "serve": "/data/cschatroom/getParameterItem.json",
+        "api": "/base/parameter/item/system/queryValid"
+    },
+    //知识库搜索
+    "robotKnowledgeSearchApi":{
+        "serve": "/data/cschatroom/robotKnowledgeSearch.json",
+        "api": "/crmim/robotKnowledgeSearch"
+    },
+    //排队人数
+    "waitQueueLengthApi":{
+        "serve": "/data/cschatroom/waitQueueLength.json",
+        "api": "/onlineReport/getWaitQueueLength"
+    },
+    //个人快捷语
+    "quickWordListApi":{
+        "serve": "/data/cschatroom/quickWordList.json",
+        "api": "/quickWord/list"
+    },
+    //获取设备信息接口
+    "getAppInfoApi":{
+        "serve": "/data/cschatroom/userinfo/getAppInfo.json",
+        "api": "/crmim/getAppInfo"
+    },
+    //用户信息
+    "onlineuseinfoApi": {
+        "serve": "/data/cschatroom/userinfo/onlineuseinfo.json",
+        "api": "/jiedaibao/userInfo/getImserverUserInfo"
+    },
+    //银行
+    "queryBaseUserInfoApi":{
+        "serve": "/data/cschatroom/userinfo/queryBaseUserInfo.json",
+        "api": "/jiedaibao/userInfo/queryBaseUserInfo"
+    },
+    //
+    "jdbqueryUrgentOrderApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryUrgentOrder.json",
+        "api": "/jiedaibao/userInfo/jdbqueryUrgentOrder"
+    },
+    //逾期
+    "jdbqueryUserOverdueApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryUserOverdue.json",
+        "api": "/jiedaibao/userInfo/jdbqueryUserOverdue"
+    },
+    //
+    "jdbqueryBalanceApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryBalance.json",
+        "api": "/jiedaibao/userInfo/jdbqueryBalance"
+    },
+    //
+    "jdbqueryPhoneAreaApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryPhoneArea.json",
+        "api": "/jiedaibao/userInfo/jdbqueryPhoneArea"
+    },
+    "jdbqueryChargeWithdrawInfoApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryChargeWithdrawInfo.json",
+        "api": "/jiedaibao/userInfo/jdbqueryChargeWithdrawInfo"
+    },
+    "jdbqueryTradingCountApi":{
+        "serve": "/data/cschatroom/userinfo/jdbqueryTradingCount.json",
+        "api": "/jiedaibao/userInfo/jdbqueryTradingCount"
+    },
+    "personalUnreadNewsApi":{
+        "serve": "/data/cschatroom/personalUnreadNews.json",
+        "api": "/base/news/personalUnreadNews"
+    }
+}

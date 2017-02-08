@@ -1,0 +1,449 @@
+#historymsg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+  #historymsg .bdy {
+    border:1px solid #333;
+    width: 600px;
+    height: 500px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    background-color: #fff;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%); }
+    #historymsg .bdy .title {
+      height: 35px;
+      line-height: 35px;
+      border-bottom: 1px solid saddlebrown;
+      font-size: 14px;
+      padding-left: 10px;
+      position: relative; }
+      #historymsg .bdy .title .date-select {
+        position: absolute;
+        top: 0;
+        height: 35px;
+        right: 42px; }
+        #historymsg .bdy .title .date-select .search {
+          width: 40px;
+          height: 20px;
+          font-size: 12px;
+          text-align: center;
+          border-radius: 3px;
+          display: inline-block;
+          border: 1px solid #663;
+          line-height: 20px;
+          cursor: pointer;
+          color: #333; }
+          #historymsg .bdy .title .date-select .search:hover {
+            background-color: #2672AF;
+            color: #fff;
+            border: 1px solid #fff; }
+    #historymsg .bdy .close {
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQ4y53TyRGCMBSA4T+0IF3Qg9pATi7xkjKQGly64ITKiQqwBsvQHryAgzF5BDOTy1u+yQpAWTUz/hh9nyqrJgUewNYafZ8AzIELkCXW6CewA+ouEQvUgLFGv9QgsQSuwEpa0QBYW6NbAOUUiJAP+EEkKAR4ER8kAUHEgQ5AEQJEpINy4Ajk1uhzqC4RgAWw72YhXX8iALduCydgg/CO1AjQDuJfhx1EQsAYpGIBT90HUlOAEDT8xSYGcKAKyPpAGtvsQCnAG9e2i8bRyz+iAAAAAElFTkSuQmCC") center no-repeat;
+      width: 17px;
+      position: absolute;
+      height: 17px;
+      right: 10px;
+      display:none;
+      top: 9px;
+      cursor: pointer; }
+    #historymsg .bdy .historymsg {
+      overflow-y: scroll;
+      height: 464px; }
+      #historymsg .bdy .historymsg .msgcon {
+        padding-left: 24px; }
+  #historymsg .hismsg {
+    width: 100%;
+    padding-top: 13px;
+    position: relative;
+    overflow: hidden; }
+    #historymsg .hismsg span {
+      font-size: 13px;
+      color: #cccccc;
+      line-height: 24px;
+      display: inline-block;
+      text-align: center; }
+      #historymsg .hismsg span .emoji {
+        width: 16px;
+        height: 16px; }
+    #historymsg .hismsg .system_msg {
+      margin: 0 auto;
+      text-align: center;
+      font-size: 13px;
+      max-width: 40%;
+      border-radius: 4px;
+      padding: 2px 4px;
+      color: red; }
+      #historymsg .hismsg .system_msg i {
+        font-style: normal;
+        color: #666;
+        line-height: 22px;
+        font-size: 13px; }
+    #historymsg .hismsg .customer {
+      padding: 0 15px;
+      float: left;
+      min-height: 35px; }
+      #historymsg .hismsg .customer span {
+        text-align: left;
+        color: #333;
+        font-size: 13px;
+        line-height: 14px;
+        word-wrap: break-word; }
+      #historymsg .hismsg .customer .color {
+        color: #951fFF !important; }
+      #historymsg .hismsg .customer .timea {
+        padding-left: 13px; }
+    #historymsg .hismsg .server {
+      padding: 0 15px;
+      float: right;
+      min-height: 35px;
+      padding-left: 35px;
+      position: relative; }
+      #historymsg .hismsg .server .tar {
+        text-align: right; }
+      #historymsg .hismsg .server .pd10 {
+        padding-right: 10px; }
+      #historymsg .hismsg .server .pl24 {
+        padding-left: 24px; }
+      #historymsg .hismsg .server .color {
+        color: #81DC97 !important; }
+      #historymsg .hismsg .server .pic {
+        margin-top: 0; }
+      #historymsg .hismsg .server span {
+        text-align: left;
+        color: #333;
+        font-size: 13px;
+        line-height: 14px;
+        word-wrap: break-word; }
+        #historymsg .hismsg .server span .emoji {
+          width: 16px;
+          height: 16px; }
+    #historymsg .hismsg .pic {
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 0; }
+      #historymsg .hismsg .pic img {
+        cursor: pointer;
+        display: block; }
+  #historymsg .fw500 {
+    font-weight: 500;
+    padding-right: 10px; }
+
+#csloading{
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+  background-color: rgba(0,0,0,.5);
+}
+#csloading img{
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+}
+
+
+#bigimg{
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+  background-color: rgba(0,0,0,.5);
+
+}
+#bigimg img{
+  position: absolute;
+  display: inline-block;
+  max-width: 90%;
+  max-height: 90%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+}
+
+
+.cscontainer{ overflow: hidden; }
+.loading-warp{ display: table; width: 100%; margin-top: -5.8rem; }
+.loading-warp .box{ width: 100%; padding-top: 1rem; padding-bottom: 1rem;display: table-cell; text-align: center; vertical-align: middle; }
+.loading-warp .box img{ display: block; width: 2rem; height: 2rem; margin: 0 auto; }
+.loading-warp .box .text{ display: block; text-align: center; font-size: 0.5rem; line-height: 0.7rem; opacity: 0.7; margin-top: 1.4rem; }
+
+
+
+
+.chatmsg {
+  width: 100%;
+  padding-top: 12px;
+  position: relative;
+  overflow: hidden; }
+.chatmsg span {
+  font-size: 12px;
+  color: #cccccc;
+  line-height: 24px;
+  display: block;
+  text-align: center; }
+.chatmsg span .emoji {
+  width: 16px;
+  height: 16px; }
+.chatmsg div {
+  margin-top: 12px; }
+.chatmsg .system_msg {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 13px;
+  max-width: 40%;
+  background-color: #D0CED0;
+  border-radius: 4px;
+  padding: 2px 16px; }
+.chatmsg .system_msg i {
+  font-style: normal;
+  color: #fff;
+  line-height: 22px;
+  font-size: 13px; }
+.chatmsg .customer {
+  max-width: 59.055%;
+  padding-left: 65px;
+  float: left;
+  min-height: 35px; }
+.chatmsg .customer .cs-head {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  left: 8px;
+  top: 30px; }
+.chatmsg .customer .cs-head img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; }
+.chatmsg .customer span {
+  background-color: #E0E9F7;
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  border-radius: 8px;
+  line-height: 16px;
+  line-height: 19px;
+  padding: 8px;
+  word-wrap: break-word; }
+.chatmsg .server {
+  max-width: 59.055%;
+  padding-right: 65px;
+  float: right;
+  min-height: 35px;
+  padding-left: 35px;
+  position: relative; }
+.chatmsg .server .msgload {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  background: url("data:image/gif;base64,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") center no-repeat; }
+.chatmsg .server .msgerror {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  margin: 0;
+  left: 0;
+  cursor: pointer;
+  top: 0;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPBAMAAADJ+Ih5AAAAMFBMVEUAAADqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiPqOiNUsQbQAAAAD3RSTlMAtepZ5szLIyIO89m/po3Na0gSAAAAbUlEQVQI10WNoRHCQBQFVwESi7pBgbujgkAFtILBY+iDDqAD6IB0kHSQmMRu5sfE7ry3C5zyvgA81eEBm6x6hJXukiNU2nZaSFo3uiXr769n1M9X+yCvd5CkGptqvlsWz3o2H4B7tG5E/XopMAG1fkZ1pMk0fAAAAABJRU5ErkJggg==") center no-repeat; }
+.chatmsg .server .cs-head {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  right: 8px;
+  top: -20px; }
+.chatmsg .server .cs-head img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; }
+.chatmsg .server .pic {
+  margin-top: 0; }
+.chatmsg .server span {
+  word-wrap: break-word;
+  background-color: #E3E4E7;
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  border-radius: 8px;
+  line-height: 16px;
+  line-height: 19px;
+  padding: 8px; }
+.chatmsg .server span .emoji {
+  width: 16px;
+  height: 16px; }
+.chatmsg .pic {
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0; }
+.chatmsg .pic img {
+  cursor: pointer;
+  display: block; }
+
+/*# sourceMappingURL=chatmsg.css.map */
+#lasthistorymsg {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+}
+#lasthistorymsg .body {
+  width: 600px;
+  height: 500px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  background-color: #fff;
+  margin-left: -300px;
+}
+.op{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .3;
+  filter: alpha(opacity=30);
+}
+#lasthistorymsg .body .title {
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 1px solid saddlebrown;
+  font-size: 14px;
+  padding-left: 10px;
+  position: relative;
+}
+#lasthistorymsg .body .close {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAyUlEQVQ4y53TyRGCMBSA4T+0IF3Qg9pATi7xkjKQGly64ITKiQqwBsvQHryAgzF5BDOTy1u+yQpAWTUz/hh9nyqrJgUewNYafZ8AzIELkCXW6CewA+ouEQvUgLFGv9QgsQSuwEpa0QBYW6NbAOUUiJAP+EEkKAR4ER8kAUHEgQ5AEQJEpINy4Ajk1uhzqC4RgAWw72YhXX8iALduCydgg/CO1AjQDuJfhx1EQsAYpGIBT90HUlOAEDT8xSYGcKAKyPpAGtvsQCnAG9e2i8bRyz+iAAAAAElFTkSuQmCC") center no-repeat;
+  width: 17px;
+  position: absolute;
+  height: 17px;
+  right: 10px;
+  top: 9px;
+  cursor: pointer; }
+#lasthistorymsg .body .historymsg {
+  overflow-y: scroll;
+  height: 464px; }
+#lasthistorymsg .body .historymsg .msgcon {
+  padding-left: 24px; }
+#lasthistorymsg .hismsg {
+  width: 100%;
+  padding-top: 13px;
+  position: relative;
+  overflow: hidden; }
+#lasthistorymsg .hismsg span {
+  font-size: 13px;
+  color: #cccccc;
+  line-height: 24px;
+  display: inline-block;
+  text-align: center; }
+#lasthistorymsg .hismsg span .emoji {
+  width: 16px;
+  height: 16px; }
+#lasthistorymsg .hismsg .system_msg {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 13px;
+  max-width: 40%;
+  border-radius: 4px;
+  padding: 2px 4px;
+  color: red; }
+#lasthistorymsg .hismsg .system_msg i {
+  font-style: normal;
+  color: #666;
+  line-height: 22px;
+  font-size: 13px; }
+#lasthistorymsg .hismsg .customer {
+  max-width: 59.055%;
+  padding-left: 15px;
+  float: left;
+  min-height: 35px; }
+#lasthistorymsg .hismsg .customer span {
+  text-align: left;
+  color: #333;
+  font-size: 13px;
+  line-height: 14px;
+  word-wrap: break-word; }
+#lasthistorymsg .hismsg .customer .color {
+  color: #951fFF !important; }
+#lasthistorymsg .hismsg .customer .timea {
+  padding-left: 13px; }
+#lasthistorymsg .hismsg .server {
+  max-width: 59.055%;
+  padding-right: 15px;
+  float: right;
+  min-height: 35px;
+  padding-left: 35px;
+  position: relative; }
+#lasthistorymsg .hismsg .server .tar {
+  text-align: right; }
+#lasthistorymsg .hismsg .server .pd10 {
+  padding-right: 10px; }
+#lasthistorymsg .hismsg .server .pl24 {
+  padding-left: 24px; }
+#lasthistorymsg .hismsg .server .color {
+  color: #81DC97 !important; }
+#lasthistorymsg .hismsg .server .pic {
+  margin-top: 0; }
+#lasthistorymsg .hismsg .server span {
+  text-align: left;
+  color: #333;
+  font-size: 13px;
+  line-height: 14px;
+  word-wrap: break-word; }
+#lasthistorymsg .hismsg .server span .emoji {
+  width: 16px;
+  height: 16px; }
+#lasthistorymsg .hismsg .pic {
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0; }
+#lasthistorymsg .hismsg .pic img {
+  cursor: pointer;
+  display: block; }
+
+#bigimg {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+
+
+}
+#bigimg div {
+  background-color: #000;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  filter: alpha(opacity=50);
+}

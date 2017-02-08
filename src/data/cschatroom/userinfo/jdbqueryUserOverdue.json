@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "netWorkMessage": "SUCCESS",
+    "unknownError": "SUCCESS",
+    "isOverdueAsCreditor": "是",
+    "isOverdueAsDebtor": "是",
+    "registerTime": 0,
+    "faceStatus": 0,
+    "friendCount": 0,
+    "status": 0
+  }
+}

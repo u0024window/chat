@@ -1,0 +1,26 @@
+{
+  "error": {
+    "returnCode": 0,
+    "returnMessage": "操作成功",
+    "returnUserMessage": "操作成功"
+  },
+  "data": {
+    "knowledgeList": [
+      {
+        "detailUrl": "http://www.bootcss.com",
+        "knowledge": "借贷宝怎么玩"
+      },
+      {
+        "detailUrl": "www.baidu.com",
+        "knowledge": "借贷宝怎么玩"
+      },
+      {
+        "detailUrl": "www.baidu.com",
+        "knowledge": "借贷宝怎么玩"
+      },
+      {
+        "detailUrl": "http://xxxx/crmim/robotKnowledgeDetail?agentId=C0001&question=%E4%BB%80%E4%B9%88%E6%98%AF%E5%80%9F%E8%B4%B7%E5%AE%9D",
+        "knowledge": "什么是借贷宝"
+      }]
+  }
+}

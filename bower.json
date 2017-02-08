@@ -1,0 +1,36 @@
+{
+  "name": "litigateSystem",
+  "version": "0.0.1",
+  "authors": [
+    "juntao.wu <wujuntao.com@gmail.com>"
+  ],
+  "description": "litigateSystem",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "litigateSystem"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "js-url": "~2.0.2",
+    "promise-js": "~0.0.6",
+    "vue": "~2.0.0",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "Font-Awesome#^4.6.0",
+    "magic-check": "~1.0.2"
+  },
+  "dependencies": {
+    "font-awesome-animation": "^0.0.8",
+    "vue-strap": "^1.0.11",
+    "weui": "^1.0.2",
+    "vue": "2.1.0"
+  }
+}

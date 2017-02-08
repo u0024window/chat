@@ -1,0 +1,41 @@
+{
+  "error": {
+    "returnCode": 0,
+    "returnMessage": "success",
+    "returnUserMessage": "success"
+  },
+  "data": [{
+    "id": "long(主键)",
+    "title":"String(标题)",
+    "content":"String(内容)",
+    "order":"int(顺序)",
+    "status":"int状态(1:启用 2:注销)",
+    "type":"int类型(1:系统 2.个人)",
+    "userName":"String该快捷语所属用户",
+    "createTime":"",
+    "updateTime":""
+  },
+    {
+      "id": "long(主键)",
+      "title":"String(标题)",
+      "content":"String(内容)",
+      "order":"int(顺序)",
+      "status":"int状态(1:启用 2:注销)",
+      "type":"int类型(1:系统 2.个人)",
+      "userName":"String该快捷语所属用户",
+      "createTime":"",
+      "updateTime":""
+    },
+    {
+      "id": "long(主键)",
+      "title":"String(标题)",
+      "content":"String(内容)",
+      "order":"int(顺序)",
+      "status":"int状态(1:启用 2:注销)",
+      "type":"int类型(1:系统 2.个人)",
+      "userName":"String该快捷语所属用户",
+      "createTime":"",
+      "updateTime":""
+    }
+  ]
+}

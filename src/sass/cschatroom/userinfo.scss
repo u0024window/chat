@@ -1,0 +1,112 @@
+.rightside{
+    &>div:nth-child(1){
+        width: 100%;
+        height: 38px;
+        background-color: #F6F4F6;
+        border-bottom: 1px solid #EFEDEF;
+        position: relative;
+        z-index: 1000;
+        
+        span{
+            display: inline-block;
+            font-size: 14px;
+            color: #999;
+            height: 29px;
+            line-height: 29px;
+            margin-left: 30px;
+            font-weight: 200;
+            padding-top: 7px;
+            cursor: pointer;
+
+            &:hover{
+                color: #333;
+            }
+        }
+    }
+
+    table{
+        margin-left: 20px;
+        margin-top: 11px;
+        tr{
+            height: 25px;
+            
+            td:nth-child(1){
+                font-size: 12px;
+                color: #999999;
+                text-align: right;
+                line-height: 25px;
+                width:100px;
+            }
+            td:nth-child(2){
+                padding-left: 6px;
+                font-size: 12px;
+                color: #999999;
+                line-height: 25px;
+                text-align: left;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .bank-color{
+                color:#0c73c2 !important;
+                position: relative;
+            }
+
+            td{
+                i{
+                    color:red;
+                    font-style:normal;
+                }
+            }
+        }
+    }
+    .last{
+        overflow: hidden;
+    }
+    .bank-info{
+        position:absolute;
+        background-color:#fbf9fb;
+        width:220px;
+        bottom:20px;
+        left:-80px;
+        padding:5px;
+        border:1px solid #ccc;
+        border-radius: 3px;
+        font-size:14px;
+        height: 110px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        span{
+            display:inline-block;
+            padding:2px 5px;
+        }
+    }
+}
+.b-b{
+    border-bottom: 2px solid #B8B6B8 !important;
+    color: #333 !important;
+}
+.jian-dan{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: 10px;
+    top: 64px;
+    z-index: 1000000;
+
+    .additem{
+        margin-bottom:5px;
+        height: 30px;
+        width: 90px;
+        line-height: 30px;
+        text-align: center;
+        background-color: #2672AF;
+        color: #fff;
+        padding-top: 0;
+        border-radius: 5px;
+        right: 5px;
+        display: block;
+        cursor:pointer;
+    }
+}

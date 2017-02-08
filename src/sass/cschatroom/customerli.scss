@@ -1,0 +1,118 @@
+.customer-li{
+    // width:100%;
+    height:61px;
+    position:relative;
+    padding-left:63px;
+    background-color: #FBF9FB;
+    border-bottom: 1px solid #EEECEE;
+    cursor:pointer;
+
+    .msk{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+
+    }
+    div{
+        position:absolute;
+        border-radius:50%;
+        width: 40px;
+        height:40px;
+        overflow: hidden;
+        top: 10px;
+        left: 7px;
+        img{
+            border-radius:50%;
+            width: 40px;
+            height:40px;
+        }
+    }
+    .name{
+        height: 50%;
+        text-align:left;
+        display:block;
+        position: relative;
+        font-size: 14px;
+        line-height: 30px;
+        color: #333333;
+        
+        span{
+            position: absolute;
+            right: 12px;
+            font-size: 12px;
+            color: #b2b2b2;
+
+            i{
+                font-style:normal;
+                color:red;
+            }
+        }
+        
+    }
+    .question{
+        height: 50%;
+        text-align: left;
+        display: block;
+        position: relative;
+        font-size: 12px;
+        line-height: 30px;
+        color: #999999;
+        p{
+            .emoji{
+                width:12px;
+                height: 12px;
+            }
+        }
+        span{
+            position: absolute;
+            right: 12px;
+            color: #ffffff;
+            font-size: 12px;
+            background-color: #E64544;
+            height: 14px;
+            line-height: 14px;
+            border-radius: 6px;
+            top:50%;
+            transform: translateY(-50%);
+            // letter-spacing: 1px;
+            padding: 0 4px;
+        }
+    }
+
+}
+//当前选中的聊天客户
+.curcustomer{
+    background-color: #5E7898 !important;
+    color:#fff;
+}
+.hide{
+    display: none !important;
+}
+
+.cust{
+    background-color: #5e7997 !important;
+    .name{
+        color:#fff;
+    }
+    .name>span{
+        color:#fff;
+    }
+    .question{
+        color: #fff;
+    }
+}
+.othercust{
+    background-color: #FBF9FB !important;
+    .name{
+        color:#333;
+    }
+    .name>span{
+        color:#b2b2b2;
+    }
+    .question{
+        color: #999;
+    }
+}

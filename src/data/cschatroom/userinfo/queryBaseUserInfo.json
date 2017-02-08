@@ -1,0 +1,47 @@
+{
+  "data": {
+    "appVersion": "2.7.0",
+    "cardInfo": [
+      {
+        "bankName": "平安银行",
+        "cardNo": "***************5788"
+      },
+      {
+        "bankName": "平安银行",
+        "cardNo": "***************5274"
+      },
+      {
+        "bankName": "平安银行",
+        "cardNo": "***************5272"
+      },
+      {
+        "bankName": "平安银行",
+        "cardNo": "***************5273"
+      },
+      {
+        "bankName": "工商银行",
+        "cardNo": "***************3077"
+      }
+    ],
+    "certificationTime": "2016-07-27 19:53:49",
+    "deviceType": "iphone 6s plus",
+    "faceStatus": 1,
+    "faceStatusName": "通过",
+    "friendCount": 427,
+    "idNo": "331101********3490",
+    "identExist": 0,
+    "isNewMember": "否",
+    "level": "见习生",
+    "memberId": "538522734200627260",
+    "name": "测一五",
+    "netWorkMessage": "SUCCESS",
+    "platform": "ios",
+    "registerTime": 1478755997000,
+    "status": "1",
+    "statusName": "正常",
+    "systemVersion": "10.1.1",
+    "unknownError": "SUCCESS",
+    "userType": "1"
+  },
+  "success": true
+}

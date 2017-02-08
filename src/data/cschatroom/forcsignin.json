@@ -1,0 +1,8 @@
+{
+    "error": {
+        "returnCode":0,//int 错误码
+        "returnMessage":"",//string 错误信息
+        "returnUserMessage":""//错误原因 
+    },
+    "data": null
+}

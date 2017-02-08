@@ -1,0 +1,77 @@
+{
+    "error": {
+        "returnCode":"0",
+        "returnMessage":""
+    },
+    "data": {
+        "msgList": [
+            {
+                "id":"1" ,
+                "msgId":"1",
+                "recordId":"1", 
+                "senderType":"1" ,
+                "fromUserId":"1", 
+                "toUserId":"11111", 
+                "chatType":"1",
+                "subType":"101",
+                "msgVisualRange":"1",
+                "msgContent":[{
+                       "msgType":"1",
+                       "content":"按时打算打算打算打算打算打算打打多少",
+                       "action":"",
+                       "ext":""
+                }],
+                "status": "1" ,
+                "createDate":"1476806399999",
+                "updateDate":"1476806399999",
+                "memberId":"1476806399999",
+                "groupId":"1476806399999"
+            },
+            {
+                "id":"2" ,
+                "msgId":"2",
+                "recordId":"2", 
+                "senderType":"1" ,
+                "fromUserId":"1", 
+                "toUserId":"22222", 
+                "chatType":"1", 
+                "subType":"101",
+                "msgVisualRange":"1",
+                "msgContent":[{
+                       "msgType":"1",
+                       "content":"历史这里是题这这里是题这里是问题是问题里是问题是问题",
+                       "action":"",
+                       "ext":""
+                }],
+                "status": "1" ,
+                "createDate":"1476806400001",
+                "updateDate":"1476806400001" ,
+                "memberId":"1476806400001",
+                "groupId":"1476806400001"
+            },
+            {
+                "id":"3" ,
+                "msgId":"3",
+                "recordId":"3", 
+                "senderType":"1" ,
+                "fromUserId":"1", 
+                "toUserId":"33333",
+                "chatType":"1",
+                "subType":"101",
+                "msgVisualRange":"1",
+                "msgContent":[{
+                       "msgType":"1",
+                       "content":"历史这里是题这这里是题这里是问题是问题里是问题是问题",
+                       "action":"",
+                       "ext":""
+                }],
+                "status": "1" ,
+                "createDate":"1465557360822", 
+                "updateDate":"1465557360822" ,
+                "memberId":"146562618735",
+                "groupId":"146562261875" 
+            }
+                   ],
+        "count": 1
+    }
+}

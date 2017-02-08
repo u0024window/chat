@@ -1,0 +1,17 @@
+{
+    "error":{
+        "returnCode":0,
+        "returnMessage":"操作成功",
+        "returnUserMessage":"操作成功"
+    },
+    "data":{
+     "avatar_url":"http://jdbserver.b0.upaiyun.com/images/53851455776102015",                                
+     "thumbnail_url":"http://jdbserver.b0.upaiyun.com/images/53851455776102015!percent25",
+     "overdued":"1",
+     "collected":"0",
+     "userName":"测五一",
+     "mobile":"19100000051",
+     "sex":"F",
+     "memberId":"1"
+    }
+}

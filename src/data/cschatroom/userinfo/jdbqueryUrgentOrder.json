@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "netWorkMessage": "SUCCESS",
+    "unknownError": "SUCCESS",
+    "isUrgentOrder": "无紧急",
+    "unCompletedOrderCount": "1",
+    "registerTime": 0,
+    "faceStatus": 0,
+    "friendCount": 0,
+    "status": 0
+  }
+}

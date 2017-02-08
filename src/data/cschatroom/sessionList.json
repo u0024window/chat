@@ -1,0 +1,58 @@
+{
+  "error": {
+    "returnCode": 0,
+    "returnMessage": "success",
+    "returnUserMessage": "success"
+  },
+  "data": {
+    "total": "1",
+    "sessionList": [
+      {
+        "id": "23",
+        "sessionId": "23432423",
+        "fromUserId": "1",
+        "agentId": "2",
+        "sessionStartTime": "2323",
+        "sessionEndTime": "1476253989854",
+        "customerName": "测一",
+        "tel": "22333",
+        "hasSheetCreated":"1",
+        "handTime": "33434",
+        "firstReplyTime": "345435",
+        "avgReplyTime": "345345",
+        "msgCount": "454435345"
+      },
+      {
+        "id": "23",
+        "sessionId": "23432423",
+        "fromUserId": "2",
+        "agentId": "2",
+        "sessionStartTime": "2323",
+        "sessionEndTime": "1476253989854",
+        "customerName": "测一",
+        "tel": "22333",
+        "hasSheetCreated":"0",
+        "handTime": "33434",
+        "firstReplyTime": "345435",
+        "avgReplyTime": "345345",
+        "msgCount": "454435345"
+      },
+      {
+        "id": "23",
+        "sessionId": "23432423",
+        "fromUserId": "3",
+        "agentId": "2",
+        "sessionStartTime": "2323",
+        "sessionEndTime": "1476253989854",
+        "customerName": "测一",
+        "tel": "22333",
+        "hasSheetCreated":"1",
+        "handTime": "33434",
+        "firstReplyTime": "345435",
+        "avgReplyTime": "345345",
+        "msgCount": "454435345"
+      }
+    ]
+  }
+}
+

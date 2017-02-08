@@ -1,0 +1,36 @@
+{
+    "error": {
+        "returnCode":0,
+        "returnMessage":""
+    },
+    "data": 
+        [
+          {
+            "memberId" :"143",
+            "groupId" :"7",
+            "isNewMessage":"0",
+            "newMsgCount":"0",
+            "msgContent":[{
+              "msgType":"1",
+              "content":"2",
+              "action":"",
+              "ext":""
+            }],
+            "createTime":"1468981429705"
+          },
+          {
+            "memberId" :"153",
+            "groupId" :"8",
+            "isNewMessage":"0",
+            "newMsgCount":"1",
+            "msgContent":[{
+              "msgType":"1",
+              "content":"3",
+              "action":"",
+              "ext":""
+            }],
+            "createTime":"1468981429705"
+          }
+        ]
+}
+

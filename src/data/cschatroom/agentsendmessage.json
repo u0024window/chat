@@ -1,0 +1,17 @@
+{
+    "error":{
+        "returnCode":0,
+        "returnMessage":""
+    },
+    "data":{
+        "msgId":"1"
+    },
+    "result":"S",
+    "desc":"",
+    "parameters":{
+        "userID":"222",
+        "agentID":"agentA",
+        "msg":"dsds",
+        "recordID":1
+    }
+}

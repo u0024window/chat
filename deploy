@@ -1,0 +1,3 @@
+dev,gulp dev,dist
+beta,gulp beta,dist
+prod,gulp build,dist

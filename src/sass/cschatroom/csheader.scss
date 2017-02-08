@@ -1,0 +1,71 @@
+@mixin positionstyle($y:-50%){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,$y);
+    -ms-transform:translate(-50%,$y); 	/* IE 9 */
+    -moz-transform:translate(-50%,$y); 	/* Firefox */
+    -webkit-transform:translate(-50%,$y); /* Safari 和 Chrome */
+    -o-transform:translate(-50%,$y); 	
+}
+@mixin wh($w:100%,$h:100%){
+    width: $w;
+    height: $h;
+}
+
+.customerinfo{
+    height: 25px;
+    @include positionstyle($y:-50%);
+    overflow: hidden;
+    
+    div{
+        @include wh(23px,23px);
+        border-radius: 50%;
+        overflow: hidden;
+        // display: inline-block;
+        float: left;
+        
+        img{
+            border-radius: 50%;
+            @include wh(23px,23px);
+        }
+    }
+    span{
+        padding-left: 10px;
+        height: 23px;
+        line-height: 23px;
+        font-size: 14px;
+        // display: inline-block;
+        float: left;
+    }
+    
+    
+}
+.hd-left{
+    width:24%;
+    height:100%;
+    display:inline-block;
+    position: relative;
+}
+.hd-right{
+    width:76%;
+    height:100%;
+    display:inline-block;
+    position: relative;
+
+    .closelj{
+        width: 36px;
+        height: 26px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAaCAMAAADorg53AAAAtFBMVEUAAADKycunp6impqfLysyrqqzHxsipqaqmpqfKycunp6jKycvKycumpqf7+/vy8vL9/f309PT29vb4+PjLysympqfu7u7Z2dnFxcXd3d2+vr/s7OzCwsO6ubqysrOvrrC2treVlZWOjo6Li4uDg4N6enrm5ubg4OCsrKyGhoaAgIB9fX3w8PDp6enQ0NDNzc2/vsC8u720tLWjo6Oenp6SkpJ3d3dzc3PT09Otra2lpaWZmZkZJmonAAAADnRSTlMAvk308/Pyvr6EhE1MTkq40BYAAAEJSURBVCjPjYzXkoMwDEVFeluaWTcChN7S65b//6+F4FnyAs7RjHwlnTEALJWR1clIWUHFnGBV70TFZA6wIkjvBZElKFiXgBWYqDJJnQBVpdBa0iVFYa1KWb8nHdtBszw/ih+PMv91Ldzuj8CRILlEF0psDSEDpzSLrikScDiJRMq1iV4wrWIv4gkckfwm7BhLcLP5CsXJgY3ZENt1P9xD3w8ip87GXZw2rfTsYfo8B6x+in/pLFJATHt/vTUDza2dmYTidAZXpEOZBz90KybyfStiRwwuuIYUFzy55L0nZZqUDMZY04ze2o5hyjQJbAoDbvc7Nh8ALDjD3QpmfAEVH7PhZyfDWfXPH7pkQ7d2K+rHAAAAAElFTkSuQmCC') center no-repeat;
+        position: absolute;
+        right: 12px;
+        bottom: 7px;
+        cursor:pointer;
+    }
+    .line-up{
+        position: absolute;
+        bottom: 11px;
+        right: 58px;
+        width: 200px;
+    }
+}

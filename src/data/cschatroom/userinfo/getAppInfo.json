@@ -1,0 +1,18 @@
+{
+    "error":{
+        "returnCode":0,
+        "returnMessage":""
+     },
+     "data":{
+       "memberID":"123",
+       "udid":"123", 
+       "accessToken" :"123", 
+       "clientVersion":"2.3.4",  
+       "platform" :"ios",
+       "network" :"3g",  
+       "systemVersion" :"4.0",  
+       "channel"  :"", 
+       "w" :"", 
+       "h" :"" 
+    }
+}

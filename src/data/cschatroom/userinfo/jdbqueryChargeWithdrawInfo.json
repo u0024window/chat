@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "netWorkMessage": "SUCCESS",
+    "unknownError": "SUCCESS",
+    "chargeWithException": "是",
+    "chargeDrawException": "是",
+    "registerTime": 0,
+    "faceStatus": 0,
+    "friendCount": 0,
+    "status": 0
+  }
+}

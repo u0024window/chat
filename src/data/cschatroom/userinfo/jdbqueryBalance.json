@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "data": {
+    "netWorkMessage": "SUCCESS",
+    "unknownError": "SUCCESS",
+    "registerTime": 0,
+    "faceStatus": 0,
+    "friendCount": 0,
+    "status": 0,
+    "balance": 65985.72
+  }
+}

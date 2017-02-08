@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "data": {
+    "netWorkMessage": "SUCCESS",
+    "unknownError": "SUCCESS",
+    "region": "无",
+    "registerTime": 0,
+    "faceStatus": 0,
+    "friendCount": 0,
+    "status": 0
+  }
+}
