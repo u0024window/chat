@@ -32,12 +32,13 @@
 			<td v-else v-html="\'<i>\'+userinfo.isOverdueAsDebtor+\'</i>\'"></td>
 		</tr>
 		<tr><td>用户等级：</td><td>{{userinfo.level}}</td></tr>
-		<tr><td>注册时间：</td><td>{{"20"+userinfo.registerTime}}</td></tr>
+		<tr><td>注册时间：</td><td>{{userinfo.registerTime}}</td></tr>
 		<tr><td>好友数：</td><td>{{userinfo.friendCount}}</td></tr>
 		<tr><td>证件号码：</td><td>{{userinfo.idNo}}</td></tr>
 		<tr><td>人脸状态：</td><td>{{userinfo.faceStatus}}</td></tr>
 		<tr><td>客户状态：</td><td>{{userinfo.status}}</td></tr>
-		<tr @click="bankInfoC($event,userinfo.cardInfo)"><td>绑定银行卡：</td>
+		<tr @click="bankInfoC($event,userinfo.cardInfo)">
+			<td>绑定银行卡：</td>
 			<td class="bank-color">
 				<span v-if="userinfo.cardInfo.length>0">{{userinfo.cardInfo[0].bankName+"..."}}</span>
 				<span v-else>无</span>
@@ -55,4 +56,3 @@
 		<a class="additem" href="javascript:;" type="button" ng-click="detail()">建单</a>
 	</div>
 </div>
-

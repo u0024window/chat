@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>&#x5728;&#x7EBF;&#x5BA2;&#x670D;</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/css/cschatroom/cschatroom.min.css?_=20160727210024">
+	<style>
+
+	</style>
+</head>
+
+<body id="chatroom">
+	<header id="head">
+		<cs-header :head="head"></cs-header>
+	</header>
+	<div class="sidelist ">
+		<div class="customer-ls cscontainer" id="history">
+			<div class="loading-warp">
+				<div class="box">
+					<div>
+						<img src="../../img/cschatroom/loading.gif">
+						<span class="text">&#x4E0B;&#x62C9;&#x5F00;&#x59CB;&#x5237;&#x65B0;</span>
+					</div>
+				</div>
+			</div>
+			<customer-li v-for="customer in historys" :msgitem="customer" :index="$index" :hide="hide"></customer-li>
+		</div>
+		<div class="customer-ls" id="current">
+			<customer-li v-for="customer in currents" :msgitem="customer" :index="$index" :hide="hide"></customer-li>
+		</div>
+		<div class="cmask" id="nosession1" v-show="show">
+			<p>&#x6682;&#x65E0;&#x4F1A;&#x8BDD;</p>
+		</div>
+	</div>
+	<div class="chatbody">
+		<div class="chatpanel">
+			<div class="chatlog cscontainer">
+				<div class="loading-warp">
+					<div class="box">
+						<div>
+							<img src="../../img/cschatroom/loading.gif">
+							<span class="text">&#x4E0B;&#x62C9;&#x5F00;&#x59CB;&#x5237;&#x65B0;</span>
+						</div>
+					</div>
+				</div>
+				<chatmsg v-for="msg in msgs" :msg="msg" :$index=""></chatmsg>
+			</div>
+			<div class="inputpanel">
+				<inputpanel></inputpanel>
+			</div>
+		</div>
+		<div class="userinfo">
+			<right-userinfo :userinfo="userinfo"></right-userinfo>
+		</div>
+		<div class="msgmask">
+			<p>&#x672A;&#x9009;&#x62E9;&#x4F1A;&#x8BDD;</p>
+		</div>
+	</div>
+
+	<!--<div id="demo">-->
+	<!--</div>-->
+
+	<script src="/js/cschatroom/cschatroom.min.js?_=20160727210024"></script>
+
+
+	<!--<script type="text/javascript" src="//js/cschatroom/inputpanel.js?_=20160727210024"></script>-->
+	<!--<script type="text/javascript" src="//js/cschatroom/test.js?_=20160727210024"></script>-->
+</body>
+
+</html>

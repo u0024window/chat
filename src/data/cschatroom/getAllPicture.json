@@ -1,0 +1,21 @@
+{
+  "error": {
+    "returnCode": 0,
+    "returnMessage": "操作成功",
+    "returnUserMessage": "操作成功"
+  },
+  "data": [
+    {
+      "msgId": "14779040800000006",
+      "url": "{\"small_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906032126!percent25\",\"small_w\":270,\"small_h\":429,\"big_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906032126\",\"big_h\":1716,\"big_w\":1080}"
+    },
+    {
+      "msgId": "14879060360000002",
+      "url": "{\"small_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906035815!percent25\",\"small_w\":270,\"small_h\":480,\"big_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906035815\",\"big_h\":1920,\"big_w\":1080}"
+    },
+    {
+      "msgId": "14879060380000001",
+      "url": "{\"small_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906038575!percent25\",\"small_w\":187,\"small_h\":272,\"big_url\":\"http:\\/\\/jdbserver.b0.upaiyun.com\\/images\\/66991487906038575\",\"big_h\":1088,\"big_w\":750}"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ const buble = require('rollup-plugin-buble')
 const replace = require('rollup-plugin-replace')
 const alias = require('rollup-plugin-alias')
 const version = process.env.VERSION || require('../package.json').version
+const weexVersion = process.env.WEEX_VERSION || require('../packages/weex-vue-framework/package.json').version
 
 const banner =
   '/*!\n' +
@@ -78,12 +79,14 @@ const builds = {
   },
   // Weex runtime framework (CommonJS).
   'weex-framework': {
+    weex: true,
     entry: path.resolve(__dirname, '../src/entries/weex-framework.js'),
     dest: path.resolve(__dirname, '../packages/weex-vue-framework/index.js'),
     format: 'cjs'
   },
   // Weex compiler (CommonJS). Used by Weex's Webpack loader.
   'weex-compiler': {
+    weex: true,
     entry: path.resolve(__dirname, '../src/entries/weex-compiler.js'),
     dest: path.resolve(__dirname, '../packages/weex-template-compiler/build.js'),
     format: 'cjs',
@@ -100,6 +103,11 @@ function genConfig (opts) {
     banner: opts.banner,
     moduleName: 'Vue',
     plugins: [
+      replace({
+        __WEEX__: !!opts.weex,
+        __WEEX_VERSION__: weexVersion,
+        __VERSION__: version
+      }),
       flow(),
       buble(),
       alias(Object.assign({}, require('./alias'), opts.alias))

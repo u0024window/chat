@@ -65,21 +65,17 @@ var csPublic = (function (window, r) {
 
   function unloadform() {
     Cookies.remove('onlineSt');
-    ChatApi.doSignInOrOut({
-      agentId: oServer.agentId,
-      status: 0// 0离线1在线2忙碌
+    $.ajax({
+      type: 'post',
+      url: '{{signinoroutApi}}',
+      dataType: 'json',
+      async: false,
+      data: {
+        agentId: oServer.agentId,
+        status: 0,// 0离线1在线2忙碌
+        busyReson: 0//0=默认 1=开会 2=休息 3=培训 4=学习，status为busy时必选
+      }
     });
-    // $.ajax({
-    //   type: 'post',
-    //   url: '{{signinoroutApi}}',
-    //   dataType: 'json',
-    //   async: false,
-    //   data: {
-    //     agentId: oServer.agentId,
-    //     status: 0,// 0离线1在线2忙碌
-    //     busyReson: 0//0=默认 1=开会 2=休息 3=培训 4=学习，status为busy时必选
-    //   }
-    // });
   }
 
   function isType(obj, strType) {
@@ -91,7 +87,6 @@ var csPublic = (function (window, r) {
       alert(res.error.returnMessage);
       return true;
     }
-    return false;
   }
 
   function objFindByKey(arrobj, key, value) {

@@ -9,7 +9,7 @@
                 listDisplay:0
             }
         },
-        computed: {
+        computed:{
             stStyle:function () {
                 var st = ['outline','online','busy'];
                 return st[this.status]+' curStatus';
@@ -32,7 +32,6 @@
         }
     });
      //客户cell
-
      Vue.component('customer-li', {
         props: ['msgitem','type'],
         template: require('cschatroom/customerli.vue'),
@@ -215,7 +214,7 @@
          template:require('cschatroom/historymsg.vue')
      });
      //搜索sessionlist
-     Vue.component('search-session',{ 
+     Vue.component('search-session',{
          data:function () {
             return {
                 tel:'',
@@ -225,7 +224,20 @@
             }
         },
          methods:{
-             searchSessionLs:factory.searchSessionLs,
+             search:function (){
+                 this.activeBtn=1;
+                 v_customerlist.mouseWheelTag = 0;
+                 var start = $('.search-session .Wdate').eq(0).val(), end = $('.search-session .Wdate').eq(1).val();
+                 this.tel ? oCustomer.getUserOtherInfo('queryBaseUserInfo',function(res){
+                     try{
+                         var groupId = "kefu_"+res.data.memberId;
+                         oCustomer.searchSessionList(groupId,start,end);
+
+                     }catch(e){
+                         alert('queryBaseUserInfo获取memberId失败');
+                     }
+                 },this.tel) : oCustomer.searchSessionList('',start,end);
+             },
              reset:function (){
                  this.activeBtn=0;
                  $('.search-session .Wdate').eq(0).val("");
@@ -439,26 +451,35 @@
     function kownledgeSearch () {
         var key = this.question;
         _self = this;
-        ChatApi.doRobotKnowledgeSearch({
-            agentId:oServer.agentId,
-            question:this.question
-        }).done(function (res) {
-            if(csPublic.isError(res)) return;
-            var result = res.data.knowledgeList;
-            if(result == null || result.length==0){
-                _self.type = 'noresult';
-                $('.noresult p span').html(_self.question);
-                //_self.noQuestion = _self.question.slice(0);
-                return;
+        $.ajax({
+            url:'{{robotKnowledgeSearchApi}}',
+            type:'post',
+            data:{
+                agentId:oServer.agentId,
+                // agentId:'1',
+                question:this.question
+            },
+            // crossDomain:true,
+             dataType:'json',
+            success:function (res) {
+                if(csPublic.isError(res)) return;
+                var result = res.data.knowledgeList;
+                if(result == null || result.length==0){
+                    _self.type = 'noresult';
+                    $('.noresult p span').html(_self.question);
+                    //_self.noQuestion = _self.question.slice(0);
+                    return;
+                }
+                _self.type = 'result';
+                for(var i=0; i<result.length; i++){
+                    result[i].knowledge = result[i].knowledge.replace(key,function (word) {
+                        return '<span style="color: red">'+word+'</span>'
+                    });
+                }
+                _self.result = result;
             }
-            _self.type = 'result';
-            for(var i=0; i<result.length; i++){
-                result[i].knowledge = result[i].knowledge.replace(key,function (word) {
-                    return '<span style="color: red">'+word+'</span>'
-                });
-            }
-            _self.result = result;
-        });
+
+        })
     }
      // 进入知识库问题答案
      function answerDetail (url) {
@@ -492,9 +513,46 @@
          }
      }
      // 聊天消息查看大图
-     function bigImg (url) {
-         $('#bigimg').show();
-         $('#bigimg img').attr('src',url);
+     function bigImg (msgId) {
+         $('#bigimg .gallerys').html("");
+         var loadImgNum=0,imgNum=0;
+         $.ajax({
+             type:'post',
+             url:'{{getAllPictureApi}}',
+             dataType:'json',
+             data:{
+                 groupId:oCustomer.current.sessionId ? '': oCustomer.current.groupId,
+                 sessionId:oCustomer.current.sessionId,
+                 isLastSession:oCustomer.current.sessionId ? false : true
+             },
+             success:function (data) {
+                 if( !!data.error.returnCode || !data.data || data.data.length == 0){
+                     alert(data.error.returnMessage);
+                     return;
+                 }
+                 imgNum = data.data.length;
+                 for(var i =0 ;i <data.data.length ; i++ ){
+                     var img = '<img class="gallery-pic" src="'+JSON.parse(data.data[i].url).big_url+'" msg-id="'+data.data[i].msgId+'" onclick="$.openPhotoGallery(this)" >';
+                     $('#bigimg .gallerys').append(img);
+                     var image = new Image();
+                     image.src = JSON.parse(data.data[i].url).big_url;
+                     image.onload = function () {
+                         loadImgNum++;
+                         if(loadImgNum == imgNum){
+                             $('[msg-id='+msgId+']').click();
+                             $('#bigimg').show();
+
+                         }
+                     }
+                 }
+             },
+             error:function () {
+                 alert(" getAllPictureApi 请求错误 ");
+             },
+             complete:function () {
+
+             }
+         });
      }
      // 输入框展开
      function extendedUp () {
@@ -564,7 +622,7 @@
                                  size: oMsg.addSize,
                                  groupId: oCustomer.current.groupId
                              },
-                             "getCurrSessionMsgs-Api",
+                             "{{getCurrSessionMsgsApi}}",
                              function (arrMsg) {
                                  v_chatbody.messages = oMsg.msgQueue = csPublic.arrUnique(arrMsg.concat(oMsg.msgQueue),'recordId');
                                  csPublic.refreshText('#chatpanel', '消息加载成功');
@@ -612,7 +670,7 @@
                                  size: oMsg.addSize,
                                  groupId: v_historymsg.groupId
                              },
-                             'getMsgLsit-Api',
+                             '{{getMsgLsitApi}}',
                              function (arrMsg) {
                                  for(var i=0;i<arrMsg.length;i++){
                                      if(arrMsg[i].senderType == 1){
@@ -636,7 +694,7 @@
                  recordId,
                  customer;
              $('#fileToUpload').fileupload({
-                     url: 'upLoad-Api',
+                     url: '{{upLoadApi}}',
                      sequentialUploads: true,
                      dataType: 'json'
                  })
@@ -737,23 +795,29 @@
                      $('#last .loading-warp').css('marginTop', '0px');
                      window.clearTimeout(timer);
                      timer = setTimeout(function () {
-                         ChatApi.doHistorySessionList({
-                             agentId: oServer.agentId,
-                             pageNo: oCustomer.historypage,
-                             pageSize: oCustomer.pageSize
-                         }).done(function (res) {
-                             customerlist = res.data.msgList;
-                             if (customerlist == null || customerlist.length == 0) {
-                                 csPublic.refreshText('#last','没有更多了');
-                                 return;
+                         $.ajax({
+                             type: 'post',
+                             url: '{{getHistorySessionLsitApi}}',
+                             dataType: 'json',
+                             data: {
+                                 agentId: oServer.agentId,
+                                 pageNo: oCustomer.historypage,
+                                 pageSize: oCustomer.pageSize
+                             },
+                             success: function (res) {
+                                 customerlist = res.data.msgList;
+                                 if (customerlist == null || customerlist.length == 0) {
+                                     csPublic.refreshText('#last','没有更多了');
+                                     return;
+                                 }
+                                 oCustomer.historypage++;
+                                 oCustomer.uphistory(customerlist);
+                                 csPublic.refreshText('#last','历史客户加载成功');
+                             },
+                             error: function () {
+                                 csPublic.refreshText('#sidelist','历史客户加载失败');
                              }
-                             oCustomer.historypage++;
-                             oCustomer.uphistory(customerlist);
-                             csPublic.refreshText('#last','历史客户加载成功');
-                         }).fail(function () {
-                             csPublic.refreshText('#sidelist','历史客户加载失败');
                          });
-
                      }, 1000);
                  }
              });
@@ -799,28 +863,21 @@
      }
      //滚动新闻
      function scrollNews() {
-         ChatApi.doPersonalUnreadNews({
-             limit:10,
-             start:0
-         }).done(function(res){
-             try{
-                 v_marquee.news=res.data.data;
-             }catch(e){};
-         });
-     }
-     function searchSessionLs(){
-         this.activeBtn=1;
-         v_customerlist.mouseWheelTag = 0;
-         var start = $('.search-session .Wdate').eq(0).val(), end = $('.search-session .Wdate').eq(1).val();
-         this.tel ? oCustomer.getUserOtherInfo('queryBaseUserInfo',function(res){
-             try{
-                 var groupId = "kefu_"+res.data.memberId;
-                 oCustomer.searchSessionList(groupId,start,end);
+         $.ajax({
+             url:'{{personalUnreadNewsApi}}',
+             type:'post',
+             dataType:'json',
+             data:{
+                 limit:10,
+                 start:0
+             },
+             success:function ( res ) {
+                 try{
+                     v_marquee.news=res.data.data;
+                 }catch(e){};
 
-             }catch(e){
-                 alert('queryBaseUserInfo获取memberId失败');
              }
-         },this.tel) : oCustomer.searchSessionList('',start,end);
+         })
      }
     return  {
         userInfoc:userInfoc,
@@ -850,7 +907,6 @@
         hideList:hideList,
         saveSelection:saveSelection,
         scrollNews:scrollNews,
-        searchSessionLs:searchSessionLs,
         klgmounted:klgmounted,
         chatpanelMounted:chatpanelMounted,
         chatBodyMounted:chatBodyMounted,

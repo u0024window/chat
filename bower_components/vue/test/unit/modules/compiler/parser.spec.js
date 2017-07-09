@@ -82,6 +82,28 @@ describe('parser', () => {
     expect('Component template should contain exactly one root element:\n\n<div></div><div></div>').toHaveBeenWarned()
   })
 
+  it('remove duplicate whitespace text nodes caused by comments', () => {
+    const ast = parse(`<div><a></a> <!----> <a></a></div>`, baseOptions)
+    expect(ast.children.length).toBe(3)
+    expect(ast.children[0].tag).toBe('a')
+    expect(ast.children[1].text).toBe(' ')
+    expect(ast.children[2].tag).toBe('a')
+  })
+
+  it('remove text nodes between v-if conditions', () => {
+    const ast = parse(`<div><div v-if="1"></div> <div v-else-if="2"></div> <div v-else></div> <span></span></div>`, baseOptions)
+    expect(ast.children.length).toBe(3)
+    expect(ast.children[0].tag).toBe('div')
+    expect(ast.children[0].ifConditions.length).toBe(3)
+    expect(ast.children[1].text).toBe(' ') // text
+    expect(ast.children[2].tag).toBe('span')
+  })
+
+  it('warn non whitespace text between v-if conditions', () => {
+    parse(`<div><div v-if="1"></div> foo <div v-else></div></div>`, baseOptions)
+    expect(`text "foo" between v-if and v-else(-if) will be ignored`).toHaveBeenWarned()
+  })
+
   it('not warn 2 root elements with v-if and v-else', () => {
     parse('<div v-if="1"></div><div v-else></div>', baseOptions)
     expect('Component template should contain exactly one root element')
@@ -129,7 +151,7 @@ describe('parser', () => {
       <p v-else></p>
     `, baseOptions)
     expect(ast.tag).toBe('div')
-    expect(ast.conditions[1].block.tag).toBe('p')
+    expect(ast.ifConditions[1].block.tag).toBe('p')
   })
 
   it('generate correct ast for 3 or more root elements with v-if and v-else on separate lines', () => {
@@ -139,9 +161,9 @@ describe('parser', () => {
       <p v-else></p>
     `, baseOptions)
     expect(ast.tag).toBe('div')
-    expect(ast.conditions[0].block.tag).toBe('div')
-    expect(ast.conditions[1].block.tag).toBe('span')
-    expect(ast.conditions[2].block.tag).toBe('p')
+    expect(ast.ifConditions[0].block.tag).toBe('div')
+    expect(ast.ifConditions[1].block.tag).toBe('span')
+    expect(ast.ifConditions[2].block.tag).toBe('p')
 
     const astMore = parse(`
       <div v-if="1"></div>
@@ -151,11 +173,11 @@ describe('parser', () => {
       <p v-else></p>
     `, baseOptions)
     expect(astMore.tag).toBe('div')
-    expect(astMore.conditions[0].block.tag).toBe('div')
-    expect(astMore.conditions[1].block.tag).toBe('span')
-    expect(astMore.conditions[2].block.tag).toBe('div')
-    expect(astMore.conditions[3].block.tag).toBe('span')
-    expect(astMore.conditions[4].block.tag).toBe('p')
+    expect(astMore.ifConditions[0].block.tag).toBe('div')
+    expect(astMore.ifConditions[1].block.tag).toBe('span')
+    expect(astMore.ifConditions[2].block.tag).toBe('div')
+    expect(astMore.ifConditions[3].block.tag).toBe('span')
+    expect(astMore.ifConditions[4].block.tag).toBe('p')
   })
 
   it('warn 2 root elements with v-if', () => {
@@ -267,13 +289,13 @@ describe('parser', () => {
   it('v-if directive syntax', () => {
     const ast = parse('<p v-if="show">hello world</p>', baseOptions)
     expect(ast.if).toBe('show')
-    expect(ast.conditions[0].exp).toBe('show')
+    expect(ast.ifConditions[0].exp).toBe('show')
   })
 
   it('v-else-if directive syntax', () => {
     const ast = parse('<div><p v-if="show">hello</p><span v-else-if="2">elseif</span><p v-else>world</p></div>', baseOptions)
     const ifAst = ast.children[0]
-    const conditionsAst = ifAst.conditions
+    const conditionsAst = ifAst.ifConditions
     expect(conditionsAst.length).toBe(3)
     expect(conditionsAst[1].block.children[0].text).toBe('elseif')
     expect(conditionsAst[1].block.parent).toBe(ast)
@@ -284,7 +306,7 @@ describe('parser', () => {
   it('v-else directive syntax', () => {
     const ast = parse('<div><p v-if="show">hello</p><p v-else>world</p></div>', baseOptions)
     const ifAst = ast.children[0]
-    const conditionsAst = ifAst.conditions
+    const conditionsAst = ifAst.ifConditions
     expect(conditionsAst.length).toBe(2)
     expect(conditionsAst[1].block.children[0].text).toBe('world')
     expect(conditionsAst[1].block.parent).toBe(ast)
@@ -306,15 +328,15 @@ describe('parser', () => {
   })
 
   it('slot tag single syntax', () => {
-    const ast = parse('<slot></slot>', baseOptions)
-    expect(ast.tag).toBe('slot')
-    expect(ast.slotName).toBeUndefined()
+    const ast = parse('<div><slot></slot></div>', baseOptions)
+    expect(ast.children[0].tag).toBe('slot')
+    expect(ast.children[0].slotName).toBeUndefined()
   })
 
   it('slot tag namped syntax', () => {
-    const ast = parse('<slot name="one">hello world</slot>', baseOptions)
-    expect(ast.tag).toBe('slot')
-    expect(ast.slotName).toBe('"one"')
+    const ast = parse('<div><slot name="one">hello world</slot></div>', baseOptions)
+    expect(ast.children[0].tag).toBe('slot')
+    expect(ast.children[0].slotName).toBe('"one"')
   })
 
   it('slot target', () => {

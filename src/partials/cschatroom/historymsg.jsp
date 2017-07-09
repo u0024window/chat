@@ -16,7 +16,9 @@
 		<historymsg :group-id="groupId" :name="name" :avatar-url="avatarUrl" :msgs="msgs"></historymsg>
 	</div>
 	<div id="csloading"><img src="#resourcePrefix#/img/cschatroom/csloading.gif" alt=""></div>
-	<div id="bigimg"><img src="#resourcePrefix#/img/cschatroom/ing.jpg" alt=""></div>
+	<div id="bigimg">
+		<div class="gallerys" style="display: none"></div>
+	</div>
 	<!-- build:js [jsBuildPath] -->
 	<script type="text/javascript" src="/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="/js/common/jquery-all.js"></script >
@@ -32,7 +34,9 @@
 	<script type="text/javascript" src="/js/cschatroom/csfilter.js"></script>
 	<script type="text/javascript" src="/js/cschatroom/addTab.js"></script>
 	<script type="text/javascript" src="/js/cschatroom/historymsg.js"></script>
+	<%--<script type="text/javascript" src="/js/common/jquery-photo-gallery/jquery.photo.gallery.js"></script>--%>
 	<!-- endbuild -->
+	<script ignore="true" type="text/javascript" src="/app/imview/js/cschatroom/jquery-photo-gallery/jquery.photo.gallery.js"></script>
 	<script ignore="true" type="text/javascript" src="/app/imview/js/cschatroom/My97DatePicker/WdatePicker.js"></script>
 </body>
 

@@ -13,30 +13,37 @@ var oMsg = (function (window, r) {
   function sendMsg(msgContent, msgObj, memberId, groupId) {
     memberId = memberId || oCustomer.current.memberId;
     groupId = groupId || oCustomer.current.groupId;
-    ChatApi.doAgentSendMessage({
-      recordId: msgObj.recordId,
-      memberId: memberId,
-      agentId: oServer.agentId,
-      msg: msgContent,
-      groupId: groupId
-    }).done(function (res) {
-      if (res.error.returnCode == 101 || res.error.returnCode == 100) {
+    $.ajax({
+      type: 'post',
+      url: '{{AgentsendmessageApi}}',
+      dataType: 'json',
+      data: {
+        recordId: msgObj.recordId,
+        memberId: memberId,
+        agentId: oServer.agentId,
+        msg: msgContent,
+        groupId: groupId
+      },
+      success: function (res) {
+        if (res.error.returnCode == 101 || res.error.returnCode == 100) {
+          msgObj.msgStatus = 1;
+          oCustomer.delCur();
+          alert(res.error.returnMessage);
+          return;
+        }
+        if (res.error.returnCode != 0) {
+          msgObj.msgStatus = 1;
+          alert(res.error.returnMessage);
+          return;
+        }
+        msgObj.msgStatus = 0;
+        msgObj.msgId = res.data.msgId;
+        
+      },
+      error: function (req, st, error) {
         msgObj.msgStatus = 1;
-        oCustomer.delCur();
-        alert(res.error.returnMessage);
-        return;
       }
-      if (res.error.returnCode != 0) {
-        msgObj.msgStatus = 1;
-        alert(res.error.returnMessage);
-        return;
-      }
-      msgObj.msgStatus = 0;
-      msgObj.msgId = res.data.msgId;
-
-    }).fail(function () {
-      msgObj.msgStatus = 1;
-    });
+    })
   }
 
   function getFormatMsg(msg) {
@@ -142,6 +149,12 @@ var oMsg = (function (window, r) {
           callback(arrMsg);
         }
       },
+      // beforeSend: function () {
+      //   $('#csloading').show();
+      // },
+      // complete: function () {
+      //   $('#csloading').hide(); 
+      // },
       error: function () {
         csPublic.refreshText('#chatpanel', '消息加载失败');
       }
@@ -316,37 +329,50 @@ var oMsg = (function (window, r) {
       alert("请选择开始");
       return;
     }
-    ChatApi.doMsgsWithTime({
-      groupId:groupId,
-      startDate:start,
-      endDate:end
-    }).done(function (res) {
-      if (csPublic.isError(res)) return;
-      oMsg.historyMsgTag = 1;
-      var msgls = res.data;
-      if(!msgls || msgls.length==0){
-        alert('从'+start+'到'+end+'无聊天记录');
-      }
-      var arrMsg = [];
-      for(var i=0; i<msgls.length;i++){
-        var msgCell = {};
-        _setMsgCell(msgls[i], msgCell);
-        arrMsg.push(msgCell);
-      }
-      //更新历史客户头像
-      for(var i=0;i<arrMsg.length;i++){
-        if(arrMsg[i].senderType == 1){
-          arrMsg[i].avatarUrl = v_historymsg.avatarUrl;
+    $.ajax({
+      url:'{{getMsgsWithTimeApi}}',
+      type:'post',
+      dataType: 'json',
+      data:{
+        groupId:groupId,
+        startDate:start,
+        endDate:end
+      },
+      // beforeSend:function () {
+      //   $('#csloading').show();
+      // },
+      success:function (res) {
+        if (csPublic.isError(res)) return;
+        oMsg.historyMsgTag = 1;
+        var msgls = res.data;
+        if(!msgls || msgls.length==0){
+          alert('从'+start+'到'+end+'无聊天记录');
         }
+        var arrMsg = [];
+        for(var i=0; i<msgls.length;i++){
+          var msgCell = {};
+          _setMsgCell(msgls[i], msgCell);
+          arrMsg.push(msgCell);
+        }
+        //更新历史客户头像
+        for(var i=0;i<arrMsg.length;i++){
+          if(arrMsg[i].senderType == 1){
+            arrMsg[i].avatarUrl = v_historymsg.avatarUrl;
+          }
+        }
+        v_historymsg.msgs = oMsg.lastHisMsg = [];
+        v_historymsg.msgs = oMsg.lastHisMsg = arrMsg;
+        Vue.nextTick(function () {
+          $('.historymsg').scrollTop(0);
+        })
+      },
+      error:function () {
+        alert('getMsgsWithTime接口请求错误');
+      },
+      complete:function () {
+        $('#csloading').hide();
       }
-      v_historymsg.msgs = oMsg.lastHisMsg = [];
-      v_historymsg.msgs = oMsg.lastHisMsg = arrMsg;
-      Vue.nextTick(function () {
-        $('.historymsg').scrollTop(0);
-      })
-    }).fail(function () {
-      alert('getMsgsWithTime接口请求错误');
-    });
+    })
   }
 
   function sendMsgParse (msg) {

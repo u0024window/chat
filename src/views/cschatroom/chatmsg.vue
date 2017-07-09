@@ -15,9 +15,9 @@
 		<div class="cs-head"><img :src="msg.avatarUrl" alt=""></div>
 		<span v-if="msg.msgContent.msgType==1" v-html="msg.msgContent.content"></span>
 		<div class="pic" v-else><!--="msg.msgContent.msgType==2"-->
-			<img :src="msg.msgContent.smallUrl" alt="" :width="msg.msgContent.width" :height="msg.msgContent.height" @click="bigImg(msg.msgContent.bigUrl)">
+			<img :src="msg.msgContent.smallUrl" alt="" :width="msg.msgContent.width" :height="msg.msgContent.height" @click="bigImg(msg.msgId)">
 		</div>
 		<div class="msgload" v-if="msg.msgStatus==2"></div>
-		<div class="msgerror" v-else-if="msg.msgStatus==1"  @click="errorMsg(index)"></div>
+		<div class="msgerror" v-if="msg.msgStatus==1"  @click="errorMsg(index)"></div>
 	</div>
 </div>

@@ -5932,4 +5932,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=vue-strap.js.map
+//# sourceMappingURL=vue-strap.js.map;

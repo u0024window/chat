@@ -6,10 +6,10 @@ export function baseWarn (msg: string) {
   console.error(`[Vue parser]: ${msg}`)
 }
 
-export function pluckModuleFunction (
+export function pluckModuleFunction<F: Function> (
   modules: ?Array<Object>,
   key: string
-): Array<Function> {
+): Array<F> {
   return modules
     ? modules.map(m => m[key]).filter(_ => _)
     : []
@@ -45,6 +45,10 @@ export function addHandler (
   if (modifiers && modifiers.capture) {
     delete modifiers.capture
     name = '!' + name // mark the event as captured
+  }
+  if (modifiers && modifiers.once) {
+    delete modifiers.once
+    name = '~' + name // mark the event as once
   }
   let events
   if (modifiers && modifiers.native) {

@@ -19,7 +19,6 @@
         "serve": "/data/cschatroom/getmsglsit.json",
         "api": "/crmim/getMsgLsit"
     },
-    //拉用户
     "agentfindnewmessageApi": {
         "serve": "/data/cschatroom/agentfindnewmessage.json",
         "api": "/crmim/agentFindNewMessage"
@@ -74,6 +73,11 @@
         "serve": "/data/cschatroom/robotKnowledgeSearch.json",
         "api": "/crmim/robotKnowledgeSearch"
     },
+    //获取客服name
+    "findByAgentApi":{
+        "serve": "/data/cschatroom/userinfo/findByAgent.json",
+        "api": "/base/user/findByAgent"
+    },
     //排队人数
     "waitQueueLengthApi":{
         "serve": "/data/cschatroom/waitQueueLength.json",
@@ -123,12 +127,16 @@
         "serve": "/data/cschatroom/userinfo/jdbqueryChargeWithdrawInfo.json",
         "api": "/jiedaibao/userInfo/jdbqueryChargeWithdrawInfo"
     },
+    "personalUnreadNewsApi":{
+        "serve": "/data/cschatroom/personalUnreadNews.json",
+        "api": "/base/news/personalUnreadNews"
+    },
     "jdbqueryTradingCountApi":{
         "serve": "/data/cschatroom/userinfo/jdbqueryTradingCount.json",
         "api": "/jiedaibao/userInfo/jdbqueryTradingCount"
     },
-    "personalUnreadNewsApi":{
-        "serve": "/data/cschatroom/personalUnreadNews.json",
-        "api": "/base/news/personalUnreadNews"
+    "getAllPictureApi":{
+        "serve": "/data/cschatroom/getAllPicture.json",
+        "api": "/crmim/getAllPicture"
     }
 }

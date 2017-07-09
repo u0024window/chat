@@ -61,7 +61,9 @@
 		<historymsg :group-id="groupId" :name="name" :avatar-url="avatarUrl" :msgs="msgs"></historymsg>
 	</div>
 	<div id="csloading"><img src="#resourcePrefix#/img/cschatroom/csloading.gif" alt=""></div>
-	<div id="bigimg"><img src="#resourcePrefix#/img/cschatroom/ing.jpg" alt=""></div>
+    <div id="bigimg">
+        <div class="gallerys" style="display: none"></div>
+    </div>
 	<marquee behavior="scroll" direction="left" id="marquee" scrollamount="5">
 		<span v-for="item in news">
 			<span v-html="'【'+item.categoryName+'】'"></span>
@@ -81,7 +83,6 @@
 	<script type="text/javascript" src="/js/common/My97DatePicker/WdatePicker.js"></script>
 	<script type="text/javascript" src="/js/common/toast.js"></script>
 	<script type="text/javascript" src="/js/common/dateFormat.js"></script>
-	<script type="text/javascript" src="/js/cschatroom/api.js"></script>
 	<script type="text/javascript" src="/js/cschatroom/csconfig.js"></script>
 	<script type="text/javascript" src="/js/cschatroom/omsg.js"></script>
 	<script type="text/javascript" src="/js/cschatroom/ocustomer.js"></script>
@@ -97,13 +98,15 @@
 
 	<script ignore="true" src="/app/imview/js/cschatroom/cschatroom.js"></script>
 	<script ignore="true" type="text/javascript" src="/app/imview/js/cschatroom/My97DatePicker/WdatePicker.js"></script>
+    <script ignore="true" type="text/javascript" src="/app/imview/js/cschatroom/jquery-photo-gallery/jquery.photo.gallery.js"></script>
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/vendor/bootstrap-v3.0/js/bootstrap.min.js" ></script >
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/vendor/bootstrap-select/js/bootstrap-select.min.js" ></script >
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/workorder/workOrder.js"></script>
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/screen/service/userInfo.js"></script>
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/workorder/imdcsBase.js" ></script >
-	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/screen/service/customerFile.js" ></script >
 	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/workorder/edit/workOrder_quick_add.js" ></script >
+	<script ignore="true" type="text/javascript" src="<%=request.getContextPath()%>/app/screen/service/customerFile.js"></script>
+
 </body>
 
 </html>

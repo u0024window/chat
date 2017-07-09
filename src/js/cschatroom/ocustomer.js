@@ -190,51 +190,64 @@ var oCustomer = (function (window, r) {
   }
 
   function _upCurUserInfo() {//请求userinfo接口，设置当前窗口的客户信息
-    ChatApi.doOnlineUseInfo({
-      memberId: oCustomer.current.memberId
-    }).done(function (res) {
-      try{
-        var userinfo = res.data;
-        oCustomer.info.name = userinfo.userName;
-        oCustomer.info.mobile = userinfo.mobile;
-        oCustomer.info.sex = userinfo.sex;
-        oCustomer.info.isloan = (userinfo.collected == 1 ? '是' : '否');
-      }catch(e){
-        oCustomer.current.name='';
-        oCustomer.current.avatarUrl = oCustomer.defaultAvatarUrl;
-        oCustomer.info.name = '';
-        oCustomer.info.mobile = '';
-        oCustomer.info.sex = '';
-        oCustomer.info.isloan = '';
-        oCustomer.info.isoverdue = '';
-      }
-      oCustomer.info.mobile && _getAllOtherInfo();
+    $.ajax({
+      type: 'get',
+      url: '{{onlineuseinfoApi}}',
+      dataType: 'json',
+      data: {
+        memberId: oCustomer.current.memberId
+      },
+      success: function (res) {
+        try{
+          var userinfo = res.data;
+          oCustomer.info.name = userinfo.userName;
+          oCustomer.info.mobile = userinfo.mobile;
+          oCustomer.info.sex = userinfo.sex;
+          oCustomer.info.isloan = (userinfo.collected == 1 ? '是' : '否');
+        }catch(e){
+          oCustomer.current.name='';
+          oCustomer.current.avatarUrl = oCustomer.defaultAvatarUrl;
+          oCustomer.info.name = '';
+          oCustomer.info.mobile = '';
+          _getAppInfo();
+          oCustomer.info.sex = '';
+          oCustomer.info.isloan = '';
+          oCustomer.info.isoverdue = '';
+        }
+        oCustomer.info.mobile && _getAllOtherInfo();
 
-    });
+      }
+    })
   }
 
   function isOn() {
-    ChatApi.doQueryAgentStatus({
-      agentId: oServer.agentId
-    }).done(function (res) {
-      if (res.error.returnCode != 301) {
-        if (res.error.returnCode == 308) return;//新签入坐席
-        if (csPublic.isError(res)) return;
-      }
-      //如果需要强制签入
-      if (res.error.returnCode == 301) {
-        var tag = window.confirm('该用户已登录，是否强制签入？');
-        if (tag == true) {
-          oServer.forcSignIn(1);
+    $.ajax({
+      type: 'post',
+      url: '{{queryagentstatusApi}}',
+      dataType: 'json',
+      data: {
+        agentId: oServer.agentId
+      },
+      success: function (res) {
+        if (res.error.returnCode != 301) {
+          if (res.error.returnCode == 308) return;//新签入坐席
+          if (csPublic.isError(res)) return;
         }
-        return;
-      }
-      //如果正常
-      if (res.data == null) return;
-      v_head.status = res.data.status;
-      v_head.status==1 && oServer.pollMsg();
+        //如果需要强制签入
+        if (res.error.returnCode == 301) {
+          var tag = window.confirm('该用户已登录，是否强制签入？');
+          if (tag == true) {
+            oServer.forcSignIn(1);
+          }
+          return;
+        }
+        //如果正常
+        if (res.data == null) return;
+        v_head.status = res.data.status;
+        v_head.status==1 && oServer.pollMsg();
 
-    });
+      }
+    })
   }
 
   function delCur() {//删除当前客户
@@ -245,23 +258,30 @@ var oCustomer = (function (window, r) {
   }
 
   function getNmAurl(customeri) {
-    ChatApi.doOnlineUseInfo({
-      memberId: customeri.memberId,
-      datetime: +new Date()
-    }).done(function (res) {
-      try{
-        var userinfo = res.data;
-        customeri.name = userinfo.userName;
-        customeri.mobile = userinfo.mobile;
-        customeri.avatarUrl = userinfo.thumbnail_url || oCustomer.defaultAvatarUrl;
-        v_customerlist.$forceUpdate();
-      }catch (e){
-        customeri.name = '';
-        customeri.mobile = '';
-        customeri.avatarUrl = oCustomer.defaultAvatarUrl;
-      }
+    $.ajax({
+      type: 'get',
+      url: '{{onlineuseinfoApi}}',
+      dataType: 'json',
+      cache:false,
+      data: {
+        memberId: customeri.memberId,
+        datetime: +new Date()
+      },
+      success: function (res) {
+        try{
+          var userinfo = res.data;
+          customeri.name = userinfo.userName;
+          customeri.mobile = userinfo.mobile;
+          customeri.avatarUrl = userinfo.thumbnail_url || oCustomer.defaultAvatarUrl;
+          v_customerlist.$forceUpdate();
+        }catch (e){
+          customeri.name = '';
+          customeri.mobile = '';
+          customeri.avatarUrl = oCustomer.defaultAvatarUrl;
+        }
 
-    });
+      }
+    })
   }
   //没有当前客户不传值
   function upHead(name, avatarUrl) {//更新客户头像和name
@@ -283,57 +303,71 @@ var oCustomer = (function (window, r) {
       v_chatbody.tabType = 1;
       oCustomer.historypage = 1;
       v_chatbody.historys = oCustomer.historyls = [];
-      ChatApi.doHistorySessionList({
+      $.ajax({
+       type: 'post',
+       url: '{{getHistorySessionLsitApi}}',
+       dataType: 'json',
+       data: {
         agentId: oServer.agentId,
         pageNo: oCustomer.historypage,
         pageSize: oCustomer.pageSize
-      }).done(function (res) {
-        if (csPublic.isError(res)) return;
-        oCustomer.historypage++;
-        var customerlist = res.data.msgList;
-        oCustomer.uphistory(customerlist);
-      });
+       },
+       success: function (res) {
+       if (csPublic.isError(res)) return;
+       oCustomer.historypage++;
+       var customerlist = res.data.msgList;
+       oCustomer.uphistory(customerlist);
+       }
+       });
+      
     }
 
     function getSessionlist () {
-      ChatApi.doSessionList({
-        "start":oCustomer.lastpage*oCustomer.pageSize,
-        "limit":oCustomer.pageSize,
-        "agentId":oServer.agentId,
-        sessionTimeStart:csPublic.GetDateStr(-7),
-        sessionTimeEnd:csPublic.GetDateStr(0)
-      }).done(function ( res ) {
-        if(csPublic.isError(res)) return;
-        var customers = res.data.sessionList;
-        if (customers == null || customers.length == 0) {
-          csPublic.refreshText('#history','没有更多了');
-          return;
+      $.ajax({
+        url:'{{sessionListApi}}',
+        type:'post',
+        dataType:'json',
+        data:{
+          "start":oCustomer.lastpage*oCustomer.pageSize,
+          "limit":oCustomer.pageSize,
+          "agentId":oServer.agentId,
+          sessionTimeStart:csPublic.GetDateStr(-7),
+          sessionTimeEnd:csPublic.GetDateStr(0)
+        },
+        success:function ( res ) {
+          if(csPublic.isError(res)) return;
+          var customers = res.data.sessionList;
+          if (customers == null || customers.length == 0) {
+            csPublic.refreshText('#history','没有更多了');
+            return;
+          }
+          oCustomer.lastpage++;
+          for(var i=0;i<customers.length;i++){
+            var custcell = {};
+            custcell.name = customers[i].customerName;
+            custcell.mobile = customers[i].tel;
+            custcell.msgTime = customers[i].sessionEndTime;
+            custcell.groupId = customers[i].fromUserId;
+            custcell.sessionId = customers[i].sessionId;
+            custcell.id = customers[i].id;
+            custcell.newMsgCount = 0;
+            custcell.avatarUrl = oCustomer.defaultAvatarUrl;
+            custcell.memberId = customers[i].fromUserId.substring(5);
+            custcell.msgContent={// string 消息内容:富文本格式
+              msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
+              content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
+              action: '',// 处理方式
+              ext: ''// 扩展字段
+            };
+            oCustomer.laster.push(custcell);
+            oCustomer.getNmAurl(oCustomer.laster[oCustomer.laster.length-1]);
+          }
+          v_customerlist.lastSession=oCustomer.laster;
+          csPublic.refreshText('#history','历史客户加载成功');
+        },
+        error: function () {
+          csPublic.refreshText('#history','历史客户加载失败');
         }
-        oCustomer.lastpage++;
-        for(var i=0;i<customers.length;i++){
-          var custcell = {};
-          custcell.name = customers[i].customerName;
-          custcell.mobile = customers[i].tel;
-          custcell.msgTime = customers[i].sessionEndTime;
-          custcell.groupId = customers[i].fromUserId;
-          custcell.sessionId = customers[i].sessionId;
-          custcell.id = customers[i].id;
-          custcell.newMsgCount = 0;
-          custcell.avatarUrl = oCustomer.defaultAvatarUrl;
-          custcell.memberId = customers[i].fromUserId.substring(5);
-          custcell.msgContent={// string 消息内容:富文本格式
-            msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
-            content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
-            action: '',// 处理方式
-            ext: ''// 扩展字段
-          };
-          oCustomer.laster.push(custcell);
-          oCustomer.getNmAurl(oCustomer.laster[oCustomer.laster.length-1]);
-        }
-        v_customerlist.lastSession=oCustomer.laster;
-        csPublic.refreshText('#history','历史客户加载成功');
-      }).fail(function () {
-        csPublic.refreshText('#history','历史客户加载失败');
       });
     }
 
@@ -347,8 +381,8 @@ var oCustomer = (function (window, r) {
     };
     data = JSON.stringify(data);
       $.ajax({
-        url: oCustomer.userInfoApiPrefix+url,
-        // url:'/data/cschatroom/userinfo/'+url+'.json',
+        // url: oCustomer.userInfoApiPrefix+url,
+        url:'/data/cschatroom/userinfo/'+url+'.json',
         type: 'post',
         contentType:'application/json;charset=UTF-8',
         data: data,
@@ -360,7 +394,7 @@ var oCustomer = (function (window, r) {
     getUserOtherInfo('queryBaseUserInfo',function(res){
           try{
             oCustomer.info.level = res.data.level;
-            oCustomer.info.registerTime = new Date(res.data.registerTime).Format('yy-MM-dd HH:mm:ss');
+            oCustomer.info.registerTime = new Date(res.data.registerTime).Format('yyyy-MM-dd hh:mm:ss');
             oCustomer.info.friendCount = res.data.friendCount;
             oCustomer.info.idNo = res.data.idNo;
             oCustomer.info.faceStatus = (res.data.faceStatus==0 ? '未通过':'通过');
@@ -383,16 +417,16 @@ var oCustomer = (function (window, r) {
       try{
         oCustomer.info.unCompletedOrderCount = res.data.unCompletedOrderCount;
         oCustomer.info.isUrgentOrder = res.data.isUrgentOrder;
-      }catch(e){}
+      }catch(e){
+        oCustomer.info.isOverdueAsCreditor = '';
+        oCustomer.info.isOverdueAsDebtor = '';
+      }
     });
     getUserOtherInfo('jdbqueryUserOverdue',function(res){
       try{
         oCustomer.info.isOverdueAsCreditor = res.data.isOverdueAsCreditor;
         oCustomer.info.isOverdueAsDebtor = res.data.isOverdueAsDebtor;
-      }catch(e){
-        oCustomer.info.isOverdueAsCreditor = '';
-        oCustomer.info.isOverdueAsDebtor = '';
-      }
+      }catch(e){}
     });
     getUserOtherInfo('jdbqueryBalance',function(res){
       try{
@@ -420,53 +454,62 @@ var oCustomer = (function (window, r) {
   function showSessionList(){
     oCustomer.lastpage = 0;
     v_customerlist.lastSession = oCustomer.laster=[];    //会话列表没有未看消息
-    ChatApi.doSessionList({
-      "start":1,
-      "limit":oMsg.pageSize,
-      "agentId":oServer.agentId,
-      sessionTimeStart:csPublic.GetDateStr(-7),
-      sessionTimeEnd:csPublic.GetDateStr(0)
-    }).done(function ( res ) {
-      if(csPublic.isError(res)) return;
-      var customers = res.data.sessionList;
-      if(customers==null || customers.length==0){
-        alert('暂无最近会话');
-        return;
-      }
-      oCustomer.lastpage++;
-      var arrLast = [];
-      for(var i=0;i<customers.length;i++){
-        var custcell = {};
-        custcell.name = customers[i].customerName;
-        custcell.mobile = customers[i].tel;
-        custcell.msgTime = customers[i].sessionEndTime;
-        custcell.groupId = customers[i].fromUserId;
-        custcell.sessionId = customers[i].sessionId;
-        custcell.id = customers[i].id;
-        custcell.newMsgCount = 0;
-        custcell.avatarUrl = oCustomer.defaultAvatarUrl;
-        custcell.memberId = customers[i].fromUserId.substring(5);
-        custcell.msgContent={// string 消息内容:富文本格式
-          msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
-          content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
-          action: '',// 处理方式
-          ext: ''// 扩展字段
-        };
-        arrLast.push(custcell);
-        oCustomer.getNmAurl(arrLast[arrLast.length - 1]);
-      }
-      v_customerlist.lastSession = oCustomer.laster = arrLast;
-      if(oCustomer.laster.length ==0){
+    $.ajax({
+      url:'{{sessionListApi}}',
+      type:'post',
+      dataType:'json',
+      data:{
+        "start":1,
+        "limit":oMsg.pageSize,
+        "agentId":oServer.agentId,
+        sessionTimeStart:csPublic.GetDateStr(-7),
+        sessionTimeEnd:csPublic.GetDateStr(0)
+      },
+      success:function ( res ) {
+        if(csPublic.isError(res)) return;
+        var customers = res.data.sessionList;
+        if(customers==null || customers.length==0){
+          alert('暂无最近会话');
+          return;
+        }
+        oCustomer.lastpage++;
+        var arrLast = [];
+        for(var i=0;i<customers.length;i++){
+          var custcell = {};
+          custcell.name = customers[i].customerName;
+          custcell.mobile = customers[i].tel;
+          custcell.msgTime = customers[i].sessionEndTime;
+          custcell.groupId = customers[i].fromUserId;
+          custcell.sessionId = customers[i].sessionId;
+          custcell.id = customers[i].id;
+          custcell.newMsgCount = 0;
+          custcell.avatarUrl = oCustomer.defaultAvatarUrl;
+          custcell.memberId = customers[i].fromUserId.substring(5);
+          custcell.msgContent={// string 消息内容:富文本格式
+            msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
+            content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
+            action: '',// 处理方式
+            ext: ''// 扩展字段
+          };
+          arrLast.push(custcell);
+          oCustomer.getNmAurl(arrLast[arrLast.length - 1]);
+        }
+        v_customerlist.lastSession = oCustomer.laster = arrLast;
+        if(oCustomer.laster.length ==0){
         v_customerlist.hasResult=false;
       } else{
         v_customerlist.hasResult=true;
       }
-    }).fail(function () {
-      alert('最近会话加载失败');
+
+      },
+      error: function () {
+        alert('最近会话加载失败');
+      }
     });
   }
 
-  function _clearInfo () {
+  function _clearInfo (  ) {
+    // oCustomer.info={//当前客户的信息
         for(var key in oCustomer.info){
           if(key=='cardInfo')
             oCustomer.info['cardInfo'] = [];
@@ -474,60 +517,56 @@ var oCustomer = (function (window, r) {
             oCustomer.info[key]= '';
         }
   }
-  function _fixInfo (  ) {
-    for(var key in oCustomer.info){
-      if(key=='cardInfo')
-        oCustomer.info['cardInfo'] = {
-          "bankName": "请求中...",
-          "cardNo": "请求中..."
-        };
-      else
-        oCustomer.info[key]= '请求中...';
-    }
-  }
   //搜索会话记录
   function searchSessionList(fromUserId,startDate,endDate){
     var startDate = startDate || csPublic.GetDateStr(-7);
     var endDate = endDate || csPublic.GetDateStr(0);
-    ChatApi.doSessionList({
-      "start":0,
-      "limit":100,
-      "agentId":oServer.agentId,
-      sessionTimeStart:startDate,
-      sessionTimeEnd:endDate,
-      fromUserId:fromUserId
-    }).done(function ( res ) {
-      if(csPublic.isError(res)) return;
-      var customers = res.data.sessionList;
-      var arrLast = [];
-      for(var i=0;i<customers.length;i++){
-        var custcell = {};
-        custcell.name = customers[i].customerName;
-        custcell.mobile = customers[i].tel;
-        custcell.msgTime = customers[i].sessionEndTime;
-        custcell.groupId = customers[i].fromUserId;
-        custcell.sessionId = customers[i].sessionId;
-        custcell.id = customers[i].id;
-        custcell.newMsgCount = 0;
-        custcell.avatarUrl = oCustomer.defaultAvatarUrl;
-        custcell.memberId = customers[i].fromUserId.substring(5);
-        custcell.msgContent={// string 消息内容:富文本格式
-          msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
-          content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
-          action: '',// 处理方式
-          ext: ''// 扩展字段
-        };
-        arrLast.push(custcell);
-        oCustomer.getNmAurl(arrLast[arrLast.length - 1]);
+    $.ajax({
+      url:'{{sessionListApi}}',
+      type:'post',
+      dataType:'json',
+      data:{
+        "start":0,
+        "limit":100,
+        "agentId":oServer.agentId,
+        sessionTimeStart:startDate,
+        sessionTimeEnd:endDate,
+        fromUserId:fromUserId
+      },
+      success:function ( res ) {
+        if(csPublic.isError(res)) return;
+        var customers = res.data.sessionList;
+        var arrLast = [];
+        for(var i=0;i<customers.length;i++){
+          var custcell = {};
+          custcell.name = customers[i].customerName;
+          custcell.mobile = customers[i].tel;
+          custcell.msgTime = customers[i].sessionEndTime;
+          custcell.groupId = customers[i].fromUserId;
+          custcell.sessionId = customers[i].sessionId;
+          custcell.id = customers[i].id;
+          custcell.newMsgCount = 0;
+          custcell.avatarUrl = oCustomer.defaultAvatarUrl;
+          custcell.memberId = customers[i].fromUserId.substring(5);
+          custcell.msgContent={// string 消息内容:富文本格式
+            msgType: 1,// 消息类型；1=文本；2=图片；3=链接；
+            content: "是否建单:"+(customers[i].hasSheetCreated==0 ? '否':'是'),// 消息内容
+            action: '',// 处理方式
+            ext: ''// 扩展字段
+          };
+          arrLast.push(custcell);
+          oCustomer.getNmAurl(arrLast[arrLast.length - 1]);
+        }
+        v_customerlist.lastSession = oCustomer.laster = arrLast;
+        if(oCustomer.laster.length ==0){
+          v_customerlist.hasResult=false;
+        } else{
+          v_customerlist.hasResult=true;
+        }
+      },
+      error:function (  ) {
+        alert('sessionList请求失败');
       }
-      v_customerlist.lastSession = oCustomer.laster = arrLast;
-      if(oCustomer.laster.length ==0){
-        v_customerlist.hasResult=false;
-      } else{
-        v_customerlist.hasResult=true;
-      }
-    }).fail(function(){
-      alert('sessionList请求失败');
     });
   }
   return {

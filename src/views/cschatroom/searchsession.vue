@@ -8,7 +8,7 @@
 	</div>
 	<div>
 		<span @click="reset" :class="activeBtn==0 && \'active-btn\'">重置</span>
-		<span @click="searchSessionLs" :class="activeBtn==1 && \'active-btn\'">查询</span>
+		<span @click="search" :class="activeBtn==1 && \'active-btn\'">查询</span>
 	</div>
 </div>
 

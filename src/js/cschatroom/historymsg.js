@@ -8,10 +8,57 @@
 		props: ['msg','index','type'],
 		template: require('cschatroom/chatmsg.vue'),
 		methods:{
-			bigImg: function bigImg (url) {
-				$('#bigimg').show();
-				$('#bigimg img').attr('src',url);
-			}
+			bigImg:  function(msgId) {
+				var startTime =$('.Wdate').eq(0).val() ? $('.Wdate').eq(0).val()+ ' 00:00:00' :'';
+                var endTime = $('.Wdate').eq(1).val()?  $('.Wdate').eq(1).val()+ " 23:59:59" : '';
+                var loadImgNum=0,imgNum=0;
+                $('#bigimg .gallerys').html("");
+
+                $.ajax({
+                    type:'post',
+                    url:'{{getAllPictureApi}}',
+                    dataType:'json',
+                    data:{
+                        groupId: v_historymsg.groupId,
+                        isLastSession: false,
+                        startTime: startTime,
+                        endTime: endTime
+                    },
+                    beforeSend:function () {
+                       $('#csloading').show();
+                    },
+                    success:function (data) {
+                        if( !!data.error.returnCode || !data.data || data.data.length == 0){
+                            alert(data.error.returnMessage);
+                            return;
+                        }
+                        imgNum = data.data.length;
+                        for(var i =0 ;i <data.data.length ; i++ ){
+                            var img = '<img class="gallery-pic" src="'+JSON.parse(data.data[i].url).big_url+'" msg-id="'+data.data[i].msgId+'" onclick="$.openPhotoGallery(this)" >';
+                            $('#bigimg .gallerys').append(img);
+                            var image = new Image();
+                            image.src = JSON.parse(data.data[i].url).big_url;
+                            image.onload = function () {
+                                loadImgNum++;
+                                if(loadImgNum == imgNum){
+                                    $('[msg-id='+msgId+']').click();
+                                    $('#bigimg').show();
+
+                                }
+                            }
+                        }
+                    },
+                    error:function () {
+                        alert(" getAllPictureApi 请求错误 ");
+                    },
+                    complete:function () {
+                    	setTimeout(function () {
+                            $('#csloading').hide();
+                        },500);
+
+                    }
+                });
+            }
 		},
 		mounted:function () {
 			csPublic.emojiParse(this.$el);
@@ -92,8 +139,8 @@
 $('#bigimg').on('click', function (e) {//大图消失
 	e = e || window.event;
 	e.preventDefault();
-	$(this).hide();
-	$('#bigimg img').attr('src',"#resourcePrefix#/img/cschatroom/ing.jpg")
+	// $(this).hide();
+	// $('#bigimg img').attr('src',"#resourcePrefix#/img/cschatroom/ing.jpg")
 });
 $('#bigimg img').on('click', function (e) {
 	e = e || window.event;

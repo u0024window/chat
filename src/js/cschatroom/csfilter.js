@@ -6,6 +6,21 @@
 当日大于等于60分钟小于24小时，则显示「hh:mm」；
 当日之前，则显示「yy:mm:dd」
 */
+Vue.filter('hmsTimeFilter', function (timestamp) {
+    // 当前毫秒
+    var history_time = new Date(+timestamp),
+        curTime = +new Date(),
+        diffTime = curTime-history_time,
+        hh = history_time.getHours(),//小时
+        mm = history_time.getMinutes(),//分钟
+        ss = history_time.getSeconds(),//miao
+
+        hh = hh < 10 ? '0' + hh : hh,
+        mm = mm < 10 ? '0' + mm : mm,
+        ss = ss < 10 ? '0' + ss : ss;
+    return hh+':'+mm+':'+ss;
+
+});
 Vue.filter('timeFilter', function (timestamp,type) {
     // 当前毫秒
     var curdate = +new Date(),
@@ -30,6 +45,40 @@ Vue.filter('timeFilter', function (timestamp,type) {
     }else {
         return y+'/'+m+'/'+d+' '+hh+':'+mm+':'+ss;
     }
+
+
+});
+Vue.filter('timeFiltero', function (timestamp,type) {
+    // 当前毫秒
+    var curdate = +new Date(),
+        ms = 86400000,//24*60*60*1000,
+        timediff = (curdate - timestamp) / 1000,//时间差/秒
+        history_time = new Date(+timestamp),
+        todayTime0 = curdate-curdate%ms;
+    var y = history_time.getFullYear(),//年
+        m = history_time.getMonth() + 1,//月
+        d = history_time.getDate(),//日
+        hh = history_time.getHours(),//小时
+        mm = history_time.getMinutes();//分钟
+
+    m = m < 10 ? '0' + m : m;
+    d = d < 10 ? '0' + d : d;
+    hh = hh < 10 ? '0' + hh : hh;
+    mm = mm < 10 ? '0' + mm : mm;
+    if (timediff / 60 < 1) {
+        return "刚刚";
+    } else if (timediff / (60 * 60) < 1) {
+        return Math.round(timediff / 60) + '分钟前';//「x分钟前」
+    } else if (todayTime0<timestamp) {
+        return '今天 '+hh + ' : ' + mm;//「hh:mm」
+    } else if (todayTime0-ms<timestamp){//toDateString() 返回 "Thu Jun 07 2016"
+        return '昨天 '+hh + ' : ' + mm;//「hh:mm」
+    }else if(todayTime0-ms*2<timestamp){
+        return '前天 '+hh + ' : ' + mm;//「hh:mm」
+    }else {
+        return y+'-'+m+'-'+d;
+    }
+
 });
 /*对话摘要：
 *文字：取前x字为摘要，超过则以「...」截断，x为设计根据实际情况确定；

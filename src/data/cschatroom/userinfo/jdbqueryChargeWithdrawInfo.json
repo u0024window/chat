@@ -3,8 +3,8 @@
   "data": {
     "netWorkMessage": "SUCCESS",
     "unknownError": "SUCCESS",
-    "chargeWithException": "是",
-    "chargeDrawException": "是",
+    "chargeWithException": "否",
+    "chargeDrawException": "否",
     "registerTime": 0,
     "faceStatus": 0,
     "friendCount": 0,
