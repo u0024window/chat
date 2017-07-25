@@ -1,3 +1,7 @@
+# master 是我准备重构的代码，，如果想clone到本地，请拉分支代码
+
+
+
 ## 环境搭建
 * node安装，[https://nodejs.org/en/](https://nodejs.org/en/)
 * gulp安装，npm i -g gulp
